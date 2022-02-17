@@ -28,6 +28,10 @@ function getBalance(incomeAmount, expensesAmount) {
   const balance = incomeAmount - expensesAmount;
   return balance;
 }
+function getSavings(income, save) {
+  const savings = income * (save / 100);
+  return savings;
+}
 // enable disabled buttons when input is filled
 enableButton("calculate", "calculate");
 enableButton("save", "save");
@@ -49,3 +53,20 @@ document
     totalExpenses.innerText = expenses;
     totalBalance.innerText = balance;
   });
+
+// save button handle
+document.getElementById("save-button").addEventListener("click", function () {
+  const save = getInput("save");
+  const totalIncome = getInput("income");
+  const balanceText = document.getElementById("total-balance").innerText;
+  const balanceAmount = parseFloat(balanceText);
+  const savingAmount = document.getElementById("total-savings");
+  const remainingBalance = document.getElementById("total-remaining");
+  // savings calculation
+  const savings = getSavings(totalIncome, save);
+  // remaining balance calculation
+  const remaining = balanceAmount - savings;
+  //show output
+  savingAmount.innerText = savings;
+  remainingBalance.innerText = remaining;
+});
