@@ -11,3 +11,10 @@ body {
 #calculate-error {
   display: none;
 }
+/* save styles  */
+#save-error {
+  display: none;
+}
+#insufficient-balance {
+  display: none;
+}

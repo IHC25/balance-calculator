@@ -46,7 +46,6 @@ document
     const totalExpenses = document.getElementById("total-expenses");
     const totalBalance = document.getElementById("total-balance");
     const errorMessage = document.getElementById("calculate-error");
-    // errorMessage.style.display = "flex";
     // expense calculation
     const expenses = getExpenses(foodExpense, rentExpense, clothesExpense);
     // balance calculation
@@ -57,7 +56,7 @@ document
       // show error message
       errorMessage.style.display = "flex";
     } else {
-      // checking negative numbers
+      // checking negative numbers & expense is greater than income
       if (
         income >= 0 &&
         foodExpense >= 0 &&
@@ -85,11 +84,37 @@ document.getElementById("save-button").addEventListener("click", function () {
   const balanceAmount = parseFloat(balanceText);
   const savingAmount = document.getElementById("total-savings");
   const remainingBalance = document.getElementById("total-remaining");
+  const errorMessage = document.getElementById("save-error");
+  const insufficientBalance = document.getElementById("insufficient-balance");
   // savings calculation
   const savings = getSavings(totalIncome, save);
   // remaining balance calculation
   const remaining = balanceAmount - savings;
-  //show output
-  savingAmount.innerText = savings;
-  remainingBalance.innerText = remaining;
+  // checking valid input
+  if (
+    isNaN(save) == true ||
+    isNaN(savings) == true ||
+    isNaN(remaining) == true
+  ) {
+    // show error message
+    errorMessage.style.display = "flex";
+  } else {
+    // checking negative numbers
+    if (save >= 0) {
+      // checking balance is less than savings
+      if (balanceAmount >= savings) {
+        //show output
+        savingAmount.innerText = savings;
+        remainingBalance.innerText = remaining;
+        // hide error message
+        insufficientBalance.style.display = "none";
+      } else {
+        // show error message
+        insufficientBalance.style.display = "flex";
+      }
+    } else {
+      // show error message
+      errorMessage.style.display = "flex";
+    }
+  }
 });
