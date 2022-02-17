@@ -45,13 +45,36 @@ document
     const clothesExpense = getInput("clothes");
     const totalExpenses = document.getElementById("total-expenses");
     const totalBalance = document.getElementById("total-balance");
+    const errorMessage = document.getElementById("calculate-error");
+    // errorMessage.style.display = "flex";
     // expense calculation
     const expenses = getExpenses(foodExpense, rentExpense, clothesExpense);
     // balance calculation
     const balance = getBalance(income, expenses);
-    // show output
-    totalExpenses.innerText = expenses;
-    totalBalance.innerText = balance;
+
+    // checking valid inputs
+    if (isNaN(expenses) == true && isNaN(balance) == true) {
+      // show error message
+      errorMessage.style.display = "flex";
+    } else {
+      // checking negative numbers
+      if (
+        income >= 0 &&
+        foodExpense >= 0 &&
+        rentExpense >= 0 &&
+        clothesExpense >= 0 &&
+        income >= expenses
+      ) {
+        // show output
+        totalExpenses.innerText = expenses;
+        totalBalance.innerText = balance;
+        // hide error message
+        errorMessage.style.display = "none";
+      } else {
+        // show error message
+        errorMessage.style.display = "flex";
+      }
+    }
   });
 
 // save button handle
